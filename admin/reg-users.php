@@ -38,19 +38,13 @@
               <tbody>
                 <?php 
                   $sql = "SELECT
-                          `location_t`.city, 
                           `interventioncentre_t`.centreName, 
                           public_t.*
                         FROM
-                          location_t
-                          INNER JOIN
-                          public_t
-                          ON 
-                            `location_t`.locationID = `public_t`.locationID
+                        public_t
                           INNER JOIN
                           interventioncentre_t
                           ON 
-                            `location_t`.centerID = `interventioncentre_t`.centerID AND
                             `public_t`.centerID = `interventioncentre_t`.centerID";
                   $result = $conn->query($sql);
                   if ($result->num_rows > 0) {
@@ -67,9 +61,9 @@
                       <td><?=$row["gender"]; ?></td>
                       <td><?=$row["bloodGroup"]; ?></td>
                       <td><?=$row["dateOfBirth"]; ?></td>
-                      <td><?=$row["city"]; ?></td>
+                      <td><?=$row["location"]; ?></td>
                       <td><?=$row["centreName"]; ?></td>
-                      <td><?=$row["centreName"]; ?></td>
+                      <td><?=$row["interventionDate"]; ?></td>
                     </tr>
                     <?php  
                     }

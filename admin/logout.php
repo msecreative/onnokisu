@@ -30,6 +30,6 @@ if(isset($_SESSION['userId'])) {
 }
 
 // Redirect the user to the login page or any other desired page
-header("Location: login.php");
+header("Location: index.php");
 exit;
 ?>

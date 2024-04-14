@@ -73,7 +73,7 @@ if(isset($_SESSION['userId'])) {
 } else {
     // If the user ID is not set in the session, it means the user is not logged in
     // Redirect the user to the login page or display an error message
-    header("Location: login.php");
+    header("Location: index.php");
     exit(); // Ensure script execution stops after redirection
 }
 

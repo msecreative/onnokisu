@@ -105,13 +105,13 @@
     }  
 
     $xValuesJSON = json_encode($xValues);
-    $xValuesJSON = json_encode($yValues);
+    $xyValuesJSON = json_encode($yValues);
     
     ?>
 
     <script>
 const xValues = <?php echo $xValuesJSON; ?>;
-const yValues = <?php echo $xValuesJSON; ?>;
+const yValues = <?php echo $xyValuesJSON; ?>;
 const barColors = [
   "#b91d47",
   "#00aba9",
