@@ -28,6 +28,7 @@
                       <th>Month</th>
                       <th>Year</th>
                       <th>Population Count</th>
+                      <th>Action</th>
                   </tr>
               </thead>
               <tbody>
@@ -60,6 +61,9 @@
                       <td><?=$row["month"]; ?></td>
                       <td><?=$row["year"]; ?></td>
                       <td><?=$row["population_count"]; ?></td>
+                      <td>
+                      <a class="btn btn-info" href='../admin/show-stats.php?editId=<?=$row["centerID"]; ?>'>Show Stat</a>
+                      </td>
                      
                     </tr>
                     <?php  

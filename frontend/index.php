@@ -21,7 +21,7 @@
         <h1 class="text-center">Ongoing Intervention</h1>
         <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
             <?php 
-              $sql = "SELECT * FROM `disease_t`";
+              $sql = "SELECT * FROM `intervention_t`";
               $result = $conn->query($sql);
               if ($result->num_rows > 0) {
                 // Output data of each row
@@ -34,13 +34,13 @@
                 <div class="card">
                     <img src="./img/intervention2.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title"><?=$row["diseaseName"]; ?></h5>
+                        <h5 class="card-title"><?=$row["interventionName"]; ?></h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
                             dignissimos accusantium amet similique velit iste.</p>
                     </div>
                     <div class="mb-5 d-flex justify-content-around">
                         
-                    <a href="form.php?interventionId=<?=$row['diseaseID']?>" class="btn btn-primary">Sign up</a>
+                    <a href="form.php?interventionId=<?=$row['interventionID']?>" class="btn btn-primary">Sign up</a>
                     </div>
                 </div>
             </div>

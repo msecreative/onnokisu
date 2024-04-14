@@ -11,7 +11,7 @@
  Target Server Version : 50740 (5.7.40)
  File Encoding         : 65001
 
- Date: 14/04/2024 21:54:56
+ Date: 15/04/2024 03:16:09
 */
 
 SET NAMES utf8mb4;
@@ -61,6 +61,7 @@ INSERT INTO `governmentagencies_t` VALUES ('GA002', 'Directorate General of Heal
 INSERT INTO `governmentagencies_t` VALUES ('GA003', 'Bangladesh Medical Research Co', 'info@bmrcbd.org', '8802-58152221', 'Dhaka', 'Farmgate', 'Water and Sanitation Programs', 'ageny', '123');
 INSERT INTO `governmentagencies_t` VALUES ('GA004', 'National Institute of Public H', 'info@niph.org.bd', '8802-58153920', 'Dhaka', 'Mirpur', 'Mental Health Program', 'ageny', '123');
 INSERT INTO `governmentagencies_t` VALUES ('GA005', 'Bangladesh Public Health', 'info@bbs.gov.bd', '8802-9515452', 'Dhaka', 'Agargaon', 'Chicken pox Vaccination', 'ageny', '123');
+INSERT INTO `governmentagencies_t` VALUES ('GA006', 'asdfs', 'sadf@gmail.com', '01914848890', 'Dhaka', 'Mohakhali', 'Dengue Prevention Program', 'ageny', '123');
 
 -- ----------------------------
 -- Table structure for intervention_t
@@ -193,28 +194,29 @@ CREATE TABLE `public_t`  (
   `gender` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `bloodGroup` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `dateOfBirth` date NULL DEFAULT NULL,
-  `locationID` char(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `location` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `centerID` char(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `area` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `interventionID` char(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `interventionID` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `interventionDate` date NULL DEFAULT NULL,
+  `interventionMonth` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `interventionYear` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`NIDNumber`) USING BTREE,
-  INDEX `Public_FK1`(`locationID`) USING BTREE,
+  INDEX `Public_FK1`(`location`) USING BTREE,
   INDEX `Public_FK2`(`centerID`) USING BTREE,
-  INDEX `Public_FK3`(`interventionID`) USING BTREE,
-  CONSTRAINT `public_t_ibfk_1` FOREIGN KEY (`locationID`) REFERENCES `location_t` (`locationID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `public_t_ibfk_2` FOREIGN KEY (`centerID`) REFERENCES `interventioncentre_t` (`centerID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `public_t_ibfk_3` FOREIGN KEY (`interventionID`) REFERENCES `intervention_t` (`interventionID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `Public_FK3`(`interventionID`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of public_t
 -- ----------------------------
-INSERT INTO `public_t` VALUES ('1234567890', 'Rakib Hossain', 'Bangladeshi', 'Male', 'A+', '1980-05-15', 'LOC01', 'IC001', 'Done', 'Hospital', 'IN002');
-INSERT INTO `public_t` VALUES ('2345678901', 'Shimu ', 'Bangladeshi', 'Female', 'B+', '1985-08-20', 'LOC02', 'IC006', 'Done', NULL, NULL);
-INSERT INTO `public_t` VALUES ('3456789012', 'Sumaya', 'Bangladeshi', 'Female', 'O+', '1990-03-10', 'LOC01', 'IC001', 'Done', NULL, NULL);
-INSERT INTO `public_t` VALUES ('4567890123', 'Aysha Khatun', 'Bangladeshi', 'Female', 'AB+', '1975-12-25', 'LOC04', 'IC008', 'Done', NULL, NULL);
-INSERT INTO `public_t` VALUES ('5678901234', 'Fahim Fardin', 'Bangladeshi', 'Male', 'A-', '1988-11-30', 'LOC03', 'IC007', 'Done', NULL, NULL);
+INSERT INTO `public_t` VALUES ('2345678901', 'Shimu ', 'Bangladeshi', 'Female', 'B+', '1985-08-20', 'LOC02', 'IC006', 'Done', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `public_t` VALUES ('3456789012', 'Sumaya', 'Bangladeshi', 'Female', 'O+', '1990-03-10', 'LOC01', 'IC001', 'Done', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `public_t` VALUES ('4567890123', 'Aysha Khatun', 'Bangladeshi', 'Female', 'AB+', '1975-12-25', 'LOC04', 'IC008', 'Done', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `public_t` VALUES ('4587141', 'Sarmin Akter', 'Bangladeshi', 'Choose...', 'AB+', '2024-04-15', 'Dhaka', 'IC005', 'Mohammadpur', 'Hospital', 'IN005', '2024-04-14', 'April', '2024');
+INSERT INTO `public_t` VALUES ('54514', 'Sarmin Akter', 'Bangladeshi', 'Male', 'AB+', '2024-04-15', 'Dhaka', 'IC005', 'Mohammadpur', 'Government Booth', 'IN005', '2024-04-14', 'April', '2024');
+INSERT INTO `public_t` VALUES ('5678901234', 'Fahim Fardin', 'Bangladeshi', 'Male', 'A-', '1988-11-30', 'LOC03', 'IC007', 'Done', NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for publicintervention_t
@@ -254,13 +256,13 @@ CREATE TABLE `resourceallocation_t`  (
   CONSTRAINT `resourceallocation_t_ibfk_1` FOREIGN KEY (`interventionID`) REFERENCES `intervention_t` (`interventionID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `resourceallocation_t_ibfk_2` FOREIGN KEY (`policymakerID`) REFERENCES `policymakers_t` (`policymakerID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `resourceallocation_t_ibfk_3` FOREIGN KEY (`agencyID`) REFERENCES `governmentagencies_t` (`agencyID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of resourceallocation_t
 -- ----------------------------
 INSERT INTO `resourceallocation_t` VALUES (36, 'Vaccines', 1000000, '2024-03-01', '2024-04-14', 'APP', 'IN001', 'PM006', 'GA001');
-INSERT INTO `resourceallocation_t` VALUES (37, 'Educational Materials', 5000, '2024-04-15', '2024-05-01', 'PEN', 'IN005', 'PM010', 'GA002');
+INSERT INTO `resourceallocation_t` VALUES (37, 'Educational Materials', 5000, '2024-04-15', '2024-05-01', 'REJ', 'IN005', 'PM010', 'GA002');
 INSERT INTO `resourceallocation_t` VALUES (38, 'Food Supplements', 200000, '2024-02-20', '2024-03-05', 'PEN', 'IN003', 'PM009', 'GA003');
 INSERT INTO `resourceallocation_t` VALUES (39, 'Water Filters', 1000, '2024-05-10', '2024-05-20', 'PEN', 'IN004', 'PM008', 'GA004');
 
@@ -287,7 +289,7 @@ INSERT INTO `teststat` VALUES ('IC001', 'D001', 'January', 2024, 100);
 INSERT INTO `teststat` VALUES ('IC002', 'D002', 'February', 2024, 150);
 INSERT INTO `teststat` VALUES ('IC003', 'D003', 'March', 2024, 200);
 INSERT INTO `teststat` VALUES ('IC004', 'D004', 'April', 2024, 250);
-INSERT INTO `teststat` VALUES ('IC005', 'D005', 'May', 2024, 300);
+INSERT INTO `teststat` VALUES ('IC005', 'D005', 'May', 2024, 251);
 
 -- ----------------------------
 -- Table structure for users

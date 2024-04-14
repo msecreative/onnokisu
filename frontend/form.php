@@ -82,7 +82,7 @@
         <div class="col-6">
           <label for="inputAddress" class="form-label">Area</label>
           <?php 
-            $sql = "SELECT * FROM `location_t`";
+            $sql = "SELECT * FROM `interventioncentre_t`";
             $result = $conn->query($sql);
           ?>
           <select name="area" class="form-select area-combo" data-areatype="permanent">
@@ -98,13 +98,20 @@
 
         <div class="col-6">
           <label for="inputAddress" class="form-label">Center</label>
-          <select name="area" class="form-select permanentCenter" id="permanentCenter">
+          <select name="centerID" class="form-select permanentCenter" id="permanentCenter">
             <option value="">Select a Center</option>
           </select>
-        
         </div>
-        
-        
+
+        <div class="col-6">
+          <label for="centerType" class="form-label">Center Type</label>
+          <select name="centerType" class="form-select" id="centerType">
+            <option value="">Select a Center type</option>
+            <option value="Hospital">Hospital</option>
+            <option value="Government Booth">Government Booth</option>
+          </select>
+        </div>
+      
         <div class="col-12">
           <button type="submit" class="btn btn-primary">Register</button>
         </div>
