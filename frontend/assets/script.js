@@ -2,7 +2,6 @@
 $(function(){
 
 	$('.area-combo').change(function(){
-		console.log("sdfsd");
         var areaCombo = $(this);
         areaCombo.attr('disabled','disabled');
         var areaType = $(this).attr('data-areatype'); //areaType = "Present" or "Permanent"

@@ -21,7 +21,11 @@
         <div class="dashboard_content">
             <div class="d-flex justify-content-between pb-3">
               <h2>All Interventions</h2>
+              <?php 
+                if(isset($_SESSION['centerID'])) {
+              ?>
               <a class=" btn btn-primary" href="add-intervention.php">Add New Intervention</a>
+              <?php } ?>
             </div>
             <table class="table table-striped">
               <thead>
@@ -32,7 +36,7 @@
                       <th>End Date</th>
                       <th>Target Population</th>
                        <?php 
-                        if(!isset($_SESSION['userId'])) {
+                        if(isset($_SESSION['centerID'])) {
                        ?>
                       <th>Actions</th>
                     <?php } ?>
@@ -56,7 +60,7 @@
                       <td><?=$row["endDate"]; ?></td>
                       <td><?=$row["targetPopulation"]; ?></td>
                        <?php 
-                        if(!isset($_SESSION['userId'])) {
+                        if(isset($_SESSION['centerID'])) {
                        ?>
                       <td>
                         <a class="btn btn-info" href='../admin/edit-intervention.php?editId=<?=$row["interventionID"]; ?>'>Edit</a>

@@ -19,6 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($role == 'intervention') {
         $sql = "SELECT * FROM interventioncentre_t WHERE centreEmail = '$username' AND password = '$password'";
         $result = $conn->query($sql);
+    }elseif ($role == 'ageny') {
+        $sql = "SELECT * FROM governmentagencies_t WHERE agencyEmail = '$username' AND password = '$password'";
+        $result = $conn->query($sql);
     }
 
     // Check if there's a match

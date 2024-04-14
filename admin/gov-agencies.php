@@ -21,7 +21,11 @@
         <div class="dashboard_content">
             <div class="d-flex justify-content-between pb-3">
               <h2>All Agency</h2>
+              <?php 
+                if(isset($_SESSION['userId'])) {
+              ?>
               <a class=" btn btn-primary" href="add-agency.php">Add New Govt Agency</a>
+              <?php } ?>
             </div>
             <table class="table table-striped">
               <thead>
@@ -33,6 +37,12 @@
                       <th>City</th>
                       <th>Area</th>
                       <th>Agency Group</th>
+                      <?php 
+                        if(isset($_SESSION['userId'])) {
+                      ?>
+                      <th>Actions</th>
+
+                      <?php } ?>
                   </tr>
               </thead>
               <tbody>
@@ -54,6 +64,15 @@
                       <td><?=$row["city"]; ?></td>
                       <td><?=$row["area"]; ?></td>
                       <td><?=$row["agencyGroup"]; ?></td>
+                      <?php 
+                        if(isset($_SESSION['userId'])) {
+                      ?>
+                      <td>
+                        <a class="btn btn-info" href='../admin/edit-gov-agency.php?editId=<?=$row["agencyID"]; ?>'>Edit</a>
+                        <button class='delete-btn btn btn-danger' data-id="<?=$row['agencyID'] ?>">Delete</button>
+                      </td>
+
+                      <?php } ?>
                     </tr>
                     <?php  
                     }
@@ -69,14 +88,26 @@
        </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+      $(".delete-btn").click(function(){
+          var agencyID = $(this).data("id");
+          if(confirm("Are you sure you want to delete this Resource?")){
+              $.ajax({
+                  url: 'delete-agency.php',
+                  type: 'post',
+                  data: {agencyID: agencyID},
+                  success:function(response){
+                      // Refresh the page or update the UI as needed
+                      location.reload();
+                  }
+              });
+          }
+      });
+  });
+    </script>
 </body>
 </html>
-
-<?php 
-    if(isset($_GET['statusId'])) {
-    // Retrieve the statusId from the query string
-    $statusId = $_GET['statusId'];
-    echo $statusId;
-  }
- ?>

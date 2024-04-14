@@ -58,7 +58,7 @@ if(isset($_SESSION['userId'])) {
 }elseif (isset($_SESSION['agencyID'])) {
    $agencyID = $_SESSION['agencyID'];
     // Fetch data for all policymakers
-    $pstmt = $conn->prepare("SELECT * FROM `agencyID` WHERE agencyID = ?");
+    $pstmt = $conn->prepare("SELECT * FROM `governmentagencies_t` WHERE agencyID = ?");
     $pstmt->bind_param("s", $agencyID);
     $pstmt->execute();
     $allAgenciesResult = $pstmt->get_result();
@@ -69,7 +69,7 @@ if(isset($_SESSION['userId'])) {
         die("Error executing query: " . $pstmt->error);
     }
 
-    $allAgencies = $allPolicymakersResult->fetch_all(MYSQLI_ASSOC)[0];
+    $allAgencies = $allAgenciesResult->fetch_all(MYSQLI_ASSOC)[0];
 } else {
     // If the user ID is not set in the session, it means the user is not logged in
     // Redirect the user to the login page or display an error message
@@ -104,7 +104,12 @@ if(isset($_SESSION['userId'])) {
                        $userName =$allIntervention["centreName"];
                        //var_dump($userName);
                        $role =$allIntervention["role"];
-                    }
+                    }elseif (isset($allAgencies["agencyName"])) {
+
+                        $userName =$allAgencies["agencyName"];
+                        //var_dump($userName);
+                        $role = "Govt Agency";
+                     }
                 ?>   
               <span>
                 <?=$userName;?>
@@ -118,20 +123,21 @@ if(isset($_SESSION['userId'])) {
             <div class="dashboard_sidebar_menus">
                 
                 <ul class="dashboard_menus_lists" >
-                    <?php 
-                    // echo "<pre>";
-                    // var_dump($allPolicymakers);
-                    // echo "</pre>";
-
-                    if ((isset($allUsers['role']) && $allUsers['role'] == 'admin') || (isset($allIntervention['role']) && $allIntervention['role'] == 'intervention') || (isset($allPolicymakers['role']) && $allPolicymakers['role'] == 'policymaker')) {
-
-                    ?>
                     <!--menuActive -->
                     <li >
                         <a href="./dashboard.php" ><i class="fa fa-dashboard"></i><span class="menuText">Dashboard</span></a>
                     </li>
+                    <?php 
+
+                        if (!isset($_SESSION['userId'])) {
+
+                        ?>
+                    <li>
+                        <a href="test-stat.php" ><i class="fa fa-user-plus"></i><span class="menuText">Test Stat</span></a>
+                    </li>
 
                     <?php } ?>
+
 
                     <?php 
 
@@ -142,13 +148,11 @@ if(isset($_SESSION['userId'])) {
                     <li >
                         <a href="reg-users.php" ><i class="fa fa-user-plus"></i><span class="menuText">All Registrations</span></a>
                     </li>
-                    <li>
-                        <a href="test-stat.php" ><i class="fa fa-user-plus"></i><span class="menuText">Test Stat</span></a>
-                    </li>
+                    
                     <?php 
-
+                        
                     }
-                        if ((isset($allUsers['role']) && $allUsers['role'] == 'admin') || (isset($allIntervention['role']) && $allIntervention['role'] == 'intervention') || (isset($allPolicymakers['role']) && $allPolicymakers['role'] == 'policymaker')) {
+                        if ((isset($allUsers['role']) && $allUsers['role'] == 'admin') || (isset($allIntervention['role']) && $allIntervention['role'] == 'intervention') || (isset($allPolicymakers['role']) && $allPolicymakers['role'] == 'policymaker') || (isset($allAgencies['role']) && $allAgencies['role'] == 'ageny')) {
                      ?>
                     <li>
                         <a href="all-resources.php" ><i class="fa fa-user-plus"></i><span class="menuText">All Resources</span></a>

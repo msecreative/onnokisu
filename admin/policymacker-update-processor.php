@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $group = $_POST['policymackerGroup'];
     $password = $_POST['policymackerPassword'];
     $editId = $_POST['policymakerId'];
-    $role = "policymacker";
+    $role = "policymaker";
 
     if ($password) {
        // Use prepared statement to prevent SQL injection

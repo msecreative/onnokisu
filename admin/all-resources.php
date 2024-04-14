@@ -91,11 +91,18 @@
                        ?>
                       <td>
                         <?php 
-                          if (isset($_SESSION['policymakerID'])) {
+                          if (isset($_SESSION['policymakerID']) && $row["approvalStatus"]== 'PEN') {
                         ?>
-                      <a class="btn btn-primary" href='../admin/change-rec-status.php?recstatusId=<?=$row["resourceID"]; ?>'>Accept</a>
+                      <a class="btn btn-primary" href='../admin/change-rec-status.php?acceptId=<?=$row["resourceID"]; ?>'>Accept</a>
 
-                      <a class="btn btn-danger" href='../admin/change-rec-status.php?recstatusId=<?=$row["resourceID"]; ?>'>Reject</a>
+                      <a class="btn btn-danger" href='../admin/change-rec-status.php?rejectId=<?=$row["resourceID"]; ?>'>Reject</a>
+                      <?php }?>
+
+
+                      <?php 
+                        if (isset($_SESSION['agencyID']) && $row["approvalStatus"]== 'APP') {
+                      ?>
+                      <a class="btn btn-primary" href='../admin/change-rec-status.php?alloId=<?=$row["resourceID"]; ?>'>Allocate</a>
                       <?php }?>
                       <?php 
                           if (isset($_SESSION['centerID'])) {

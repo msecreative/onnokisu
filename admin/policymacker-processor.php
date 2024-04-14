@@ -8,7 +8,7 @@
         $contact = $_POST['policymackerContact'];
         $group = $_POST['policymackerGroup'];
         $password = $_POST['policymackerPassword']; // Note: It's highly recommended to hash passwords before storing them in the database for security reasons
-        $role = "policymacker";
+        $role = "policymaker";
 
         // Get the last policymakerID from the database
         $lastIdQuery = "SELECT policymakerID FROM policymakers_t ORDER BY policymakerID DESC LIMIT 1";
